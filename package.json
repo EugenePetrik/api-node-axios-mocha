@@ -1,0 +1,44 @@
+{
+  "name": "api-node-axios-mocha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "API",
+    "JavaScript",
+    "Axios",
+    "Mocha"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ajv": "^6.12.6",
+    "axios": "^0.21.1",
+    "babel-eslint": "^10.1.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-mocha": "^8.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "faker": "^5.5.3",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "mocha": "^8.3.2",
+    "prettier": "^2.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
+  }
+}
