@@ -14,7 +14,7 @@ describe('Health Check', function () {
   });
 
   it('should return content-type header', async function () {
-    expect(response.headers['content-type']).to.eq('application/json; charset=utf-8');
+    expect(response.headers['content-type']).to.eq('text/plain; charset=utf-8');
   });
 
   it('should return valid response body', async function () {

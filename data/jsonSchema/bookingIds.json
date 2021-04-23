@@ -1,0 +1,17 @@
+{
+  "type": "array",
+  "additionalItems": false,
+  "items": {
+    "anyOf": [
+      {
+        "required": ["bookingid"],
+        "properties": {
+          "bookingid": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      }
+    ]
+  }
+}

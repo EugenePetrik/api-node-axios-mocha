@@ -43,6 +43,7 @@ module.exports = {
     'babel/valid-typeof': 1,
     'mocha/no-skipped-tests': 'error',
     'mocha/no-exclusive-tests': 'error',
+    'mocha/no-setup-in-describe': 0,
     semi: [
       'error',
       'always',
