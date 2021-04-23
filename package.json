@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
+    "lint": "eslint '*/**/*.{js,cjs,ts}' --quiet --fix",
     "test": "mocha --reporter mochawesome --reporter-options reportDir=reports,reportFilename=apiTests --timeout 60000"
   },
   "type": "module",
