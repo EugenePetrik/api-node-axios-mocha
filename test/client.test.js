@@ -4,7 +4,7 @@ import path from 'path';
 import { expect } from 'chai';
 import Client from '../lib/client.controller.js';
 
-describe('User Autentication', function () {
+describe('Client', function () {
   let response = null;
 
   before(async function () {
