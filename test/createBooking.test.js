@@ -4,7 +4,7 @@ import path from 'path';
 import faker from 'faker';
 import { DateTime } from 'luxon';
 import { expect } from 'chai';
-import CreateBooking from '../lib/create.booking.controller.js';
+import Booking from '../lib/booking.controller.js';
 
 describe('Create Booking', function () {
   let response = null;
@@ -21,7 +21,7 @@ describe('Create Booking', function () {
   };
 
   before(async function () {
-    response = await CreateBooking.createBooking(body);
+    response = await Booking.createBooking(body);
   });
 
   it('should return http status code 200', async function () {

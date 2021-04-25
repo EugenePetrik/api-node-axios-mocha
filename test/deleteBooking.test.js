@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import { expect } from 'chai';
 import Client from '../lib/client.controller.js';
-import BookingIds from '../lib/booking.ids.controller.js';
-import DeleteBooking from '../lib/delete.booking.controller.js';
+import Booking from '../lib/booking.controller.js';
 
 describe('Delete Booking', function () {
   let response = null;
@@ -10,11 +9,11 @@ describe('Delete Booking', function () {
   before(async function () {
     const userToken = await Client.getUserToken();
 
-    const bookingId = await BookingIds.getBookingIds().then(response => {
+    const bookingId = await Booking.getBookingIds().then(response => {
       return _.sample(response.data.map(({ bookingid }) => bookingid));
     });
 
-    response = await DeleteBooking.deleteBooking({ bookingId, userToken });
+    response = await Booking.deleteBooking({ bookingId, userToken });
   });
 
   it('should return http status code 200', async function () {

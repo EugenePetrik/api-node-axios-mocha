@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "required": ["firstname", "lastname", "totalprice", "depositpaid", "bookingdates", "additionalneeds"],
+  "required": ["firstname", "lastname", "totalprice", "depositpaid", "bookingdates"],
   "properties": {
     "firstname": {
       "type": "string"
@@ -25,11 +25,11 @@
           "type": "string"
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "additionalneeds": {
       "type": "string"
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

@@ -3,14 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
 import { DateTime } from 'luxon';
-import BookingIds from '../lib/booking.ids.controller.js';
+import Booking from '../lib/booking.controller.js';
 
 describe('Get Booking IDs', function () {
   let response = null;
   
   describe('All IDs', function() {
     before(async function () {
-      response = await BookingIds.getBookingIds();
+      response = await Booking.getBookingIds();
     });
   
     it('should return http status code 200', async function () {
@@ -48,7 +48,7 @@ describe('Get Booking IDs', function () {
     };
 
     before(async function () {
-      response = await BookingIds.getBookingIdsWithParams(params);
+      response = await Booking.getBookingIdsWithParams(params);
     });
 
     it('should return http status code 200', async function () {
@@ -86,7 +86,7 @@ describe('Get Booking IDs', function () {
     };
 
     before(async function () {
-      response = await BookingIds.getBookingIdsWithParams(params);
+      response = await Booking.getBookingIdsWithParams(params);
     });
 
     it('should return http status code 200', async function () {

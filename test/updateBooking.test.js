@@ -6,8 +6,7 @@ import _ from 'lodash';
 import { DateTime } from 'luxon';
 import { expect } from 'chai';
 import Client from '../lib/client.controller.js';
-import BookingIds from '../lib/booking.ids.controller.js';
-import UpdateBooking from '../lib/update.booking.controller.js';
+import Booking from '../lib/booking.controller.js';
 
 describe('Update Booking', function () {
   let response = null;
@@ -27,11 +26,11 @@ describe('Update Booking', function () {
   before(async function () {
     const userToken = await Client.getUserToken();
 
-    const bookingId = await BookingIds.getBookingIds().then(response => {
+    const bookingId = await Booking.getBookingIds().then(response => {
       return _.sample(response.data.map(({ bookingid }) => bookingid));
     });
 
-    response = await UpdateBooking.updateBooking({ bookingId, body, userToken });
+    response = await Booking.updateBooking({ bookingId, body, userToken });
   });
 
   it('should return http status code 200', async function () {

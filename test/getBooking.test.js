@@ -3,14 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import { expect } from 'chai';
-import BookingIds from '../lib/booking.ids.controller.js';
 import Booking from '../lib/booking.controller.js';
 
 describe('Get Booking', function () {
   let response = null;
   
   before(async function () {
-    const bookingId = await BookingIds.getBookingIds().then(response => {
+    const bookingId = await Booking.getBookingIds().then(response => {
       return _.sample(response.data.map(({ bookingid }) => bookingid));
     });
 
