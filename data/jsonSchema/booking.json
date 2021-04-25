@@ -25,11 +25,11 @@
           "type": "string"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "additionalneeds": {
       "type": "string"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }
