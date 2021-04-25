@@ -9,7 +9,7 @@ import Client from '../lib/client.controller.js';
 import BookingIds from '../lib/booking.ids.controller.js';
 import UpdateBooking from '../lib/update.booking.controller.js';
 
-describe('UpdateBooking', function () {
+describe('Update Booking', function () {
   let response = null;
 
   const body = {
@@ -31,11 +31,10 @@ describe('UpdateBooking', function () {
       return _.sample(response.data.map(({ bookingid }) => bookingid));
     });
 
-    response = await UpdateBooking.updateBooking(bookingId, body, userToken);
+    response = await UpdateBooking.updateBooking({ bookingId, body, userToken });
   });
 
   it('should return http status code 200', async function () {
-    console.log(response.data);
     expect(response.status).to.eq(200);
     expect(response.statusText).to.eq('OK');
   });

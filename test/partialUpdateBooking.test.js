@@ -2,12 +2,16 @@ import Ajv from 'ajv';
 import fs from 'fs';
 import path from 'path';
 import faker from 'faker';
+import _ from 'lodash';
 import { DateTime } from 'luxon';
 import { expect } from 'chai';
-import CreateBooking from '../lib/create.booking.controller.js';
+import Client from '../lib/client.controller.js';
+import BookingIds from '../lib/booking.ids.controller.js';
+import UpdateBooking from '../lib/update.booking.controller.js';
 
-describe('Create Booking', function () {
+describe('Partial Update Booking', function () {
   let response = null;
+
   const body = {
     firstname: faker.name.firstName(),
     lastname: faker.name.lastName(),
@@ -21,7 +25,13 @@ describe('Create Booking', function () {
   };
 
   before(async function () {
-    response = await CreateBooking.createBooking(body);
+    const userToken = await Client.getUserToken();
+
+    const bookingId = await BookingIds.getBookingIds().then(response => {
+      return _.sample(response.data.map(({ bookingid }) => bookingid));
+    });
+
+    response = await UpdateBooking.partialUpdateBooking({ bookingId, body, userToken });
   });
 
   it('should return http status code 200', async function () {
@@ -30,34 +40,17 @@ describe('Create Booking', function () {
   });
 
   it('should return booking firstname', async function () {
-    expect(response.data.booking.firstname).to.eq(body.firstname);
+    expect(response.data.firstname).to.eq(body.firstname);
   });
 
   it('should return booking lastname', async function () {
-    expect(response.data.booking.lastname).to.eq(body.lastname);
-  });
-
-  it('should return booking totalprice', async function () {
-    expect(response.data.booking.totalprice).to.eq(body.totalprice);
-  });
-
-  it('should return booking depositpaid', async function () {
-    expect(response.data.booking.depositpaid).to.eq(body.depositpaid);
-  });
-
-  it('should return booking bookingdates', async function () {
-    expect(response.data.booking.bookingdates.checkin).to.eq(body.bookingdates.checkin);
-    expect(response.data.booking.bookingdates.checkout).to.eq(body.bookingdates.checkout);
-  });
-
-  it('should return booking additionalneeds', async function () {
-    expect(response.data.booking.additionalneeds).to.eq(body.additionalneeds);
+    expect(response.data.lastname).to.eq(body.lastname);
   });
 
   it('should have valid JSON schema', async function () {
     const ajv = new Ajv({ status: true, logger: console, allErrors: true, verbose: true });
 
-    const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'createBooking.json'));
+    const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'updateBooking.json'));
     const jsonSchema = JSON.parse(fs.readFileSync(jsonPath));
 
     expect(ajv.validate(jsonSchema, response.data)).to.be.true;
