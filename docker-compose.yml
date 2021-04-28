@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  mocha_api_tests:
+    image: api-node-axios-mocha
+    container_name: api-tests-mocha
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file: 
+      - .env
+    volumes: 
+      - ./reports/:/app/reports

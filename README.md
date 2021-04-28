@@ -24,3 +24,45 @@ npm t
 ```bash
 npm t -- ./test/client.test.js
 ```
+
+### Run tests in docker
+
+- Build Docker image:
+
+```bash
+docker build . -t <image_name:image_tag>
+```
+
+For example,
+
+```bash
+docker build . -t api-node-axios-mocha:latest
+```
+
+- Run tests:
+
+```bash
+docker run -it --rm <image_name:image_tag>
+```
+
+For example,
+
+```bash
+docker run -it --rm api-node-axios-mocha:latest
+```
+
+- Save test report:
+
+```bash
+docker run -v ${PWD}/reports:/app/reports -it --rm api-node-axios-mocha
+```
+
+### Run tests in docker-compose
+
+```bash
+docker-compose up
+```
+
+```bash
+docker-compose down
+```
