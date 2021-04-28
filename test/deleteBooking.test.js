@@ -1,27 +1,28 @@
 import _ from 'lodash';
 import { expect } from 'chai';
-import Client from '../lib/client.controller.js';
-import Booking from '../lib/booking.controller.js';
+import user from '../lib/user.controller.js';
+import booking from '../lib/booking.controller.js';
 
 describe('Delete Booking', function () {
   let response = null;
+  let bookingId = null;
 
   before(async function () {
-    const userToken = await Client.getUserToken();
+    const userData = await user.login();
+    const userToken = userData.data.token;
 
-    const bookingId = await Booking.getBookingIds().then(response => {
-      return _.sample(response.data.map(({ bookingid }) => bookingid));
-    });
+    const bookingIds = await booking.getBookingIds();
+    bookingId = _.sample(bookingIds.data.map(({ bookingid }) => bookingid));
 
-    response = await Booking.deleteBooking({ bookingId, userToken });
+    response = await booking.deleteBooking({ bookingId, userToken });
   });
 
-  it('should return http status code 200', async function () {
+  it('should return http status code 200', function () {
     expect(response.status).to.eq(201);
     expect(response.statusText).to.eq('Created');
   });
 
-  it('should return valid response body', async function () {
+  it('should return valid response body', function () {
     expect(response.data).to.eq('Created');
   });
 });

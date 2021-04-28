@@ -5,8 +5,8 @@ import faker from 'faker';
 import _ from 'lodash';
 import { DateTime } from 'luxon';
 import { expect } from 'chai';
-import Client from '../lib/client.controller.js';
-import Booking from '../lib/booking.controller.js';
+import user from '../lib/user.controller.js';
+import booking from '../lib/booking.controller.js';
 
 describe('Partial Update Booking', function () {
   let response = null;
@@ -24,29 +24,29 @@ describe('Partial Update Booking', function () {
   };
 
   before(async function () {
-    const userToken = await Client.getUserToken();
+    const userData = await user.login();
+    const userToken = userData.data.token;
 
-    const bookingId = await Booking.getBookingIds().then(response => {
-      return _.sample(response.data.map(({ bookingid }) => bookingid));
-    });
+    const bookingIds = await booking.getBookingIds();
+    const bookingId = _.sample(bookingIds.data.map(({ bookingid }) => bookingid));
 
-    response = await Booking.partialUpdateBooking({ bookingId, body, userToken });
+    response = await booking.partialUpdateBooking({ bookingId, body, userToken });
   });
 
-  it('should return http status code 200', async function () {
+  it('should return http status code 200', function () {
     expect(response.status).to.eq(200);
     expect(response.statusText).to.eq('OK');
   });
 
-  it('should return booking firstname', async function () {
+  it('should return booking firstname', function () {
     expect(response.data.firstname).to.eq(body.firstname);
   });
 
-  it('should return booking lastname', async function () {
+  it('should return booking lastname', function () {
     expect(response.data.lastname).to.eq(body.lastname);
   });
 
-  it('should have valid JSON schema', async function () {
+  it('should have valid JSON schema', function () {
     const ajv = new Ajv({ status: true, logger: console, allErrors: true, verbose: true });
 
     const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'updateBooking.json'));

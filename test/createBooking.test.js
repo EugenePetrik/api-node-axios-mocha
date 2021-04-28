@@ -4,7 +4,7 @@ import path from 'path';
 import faker from 'faker';
 import { DateTime } from 'luxon';
 import { expect } from 'chai';
-import Booking from '../lib/booking.controller.js';
+import booking from '../lib/booking.controller.js';
 
 describe('Create Booking', function () {
   let response = null;
@@ -21,40 +21,40 @@ describe('Create Booking', function () {
   };
 
   before(async function () {
-    response = await Booking.createBooking(body);
+    response = await booking.createBooking(body);
   });
 
-  it('should return http status code 200', async function () {
+  it('should return http status code 200', function () {
     expect(response.status).to.eq(200);
     expect(response.statusText).to.eq('OK');
   });
 
-  it('should return booking firstname', async function () {
+  it('should return booking firstname', function () {
     expect(response.data.booking.firstname).to.eq(body.firstname);
   });
 
-  it('should return booking lastname', async function () {
+  it('should return booking lastname', function () {
     expect(response.data.booking.lastname).to.eq(body.lastname);
   });
 
-  it('should return booking totalprice', async function () {
+  it('should return booking totalprice', function () {
     expect(response.data.booking.totalprice).to.eq(body.totalprice);
   });
 
-  it('should return booking depositpaid', async function () {
+  it('should return booking depositpaid', function () {
     expect(response.data.booking.depositpaid).to.eq(body.depositpaid);
   });
 
-  it('should return booking bookingdates', async function () {
+  it('should return booking bookingdates', function () {
     expect(response.data.booking.bookingdates.checkin).to.eq(body.bookingdates.checkin);
     expect(response.data.booking.bookingdates.checkout).to.eq(body.bookingdates.checkout);
   });
 
-  it('should return booking additionalneeds', async function () {
+  it('should return booking additionalneeds', function () {
     expect(response.data.booking.additionalneeds).to.eq(body.additionalneeds);
   });
 
-  it('should have valid JSON schema', async function () {
+  it('should have valid JSON schema', function () {
     const ajv = new Ajv({ status: true, logger: console, allErrors: true, verbose: true });
 
     const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'createBooking.json'));
