@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/EugenePetrik/api-node-axios-mocha/tree/main.svg?style=svg)](https://circleci.com/gh/EugenePetrik/api-node-axios-mocha/tree/main)
+
 ## Sample project for API testing
 
 ### Test Services 
