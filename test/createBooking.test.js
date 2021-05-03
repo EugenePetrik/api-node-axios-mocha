@@ -27,7 +27,7 @@ describe('Create Booking', function () {
   it('should return http status code 200', function () {
     expect(response.status).to.eq(200);
     expect(response.statusText).to.eq('OK');
-  })
+  });
 
   it('should return booking firstname', function () {
     expect(response.data.booking.firstname).to.eq(body.firstname);
