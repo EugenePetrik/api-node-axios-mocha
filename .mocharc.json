@@ -1,0 +1,17 @@
+{
+  "color": true,
+  "delay": false,
+  "package": "./package.json",
+  "retries": 1,
+  "timeout": "60000",
+  "spec": ["./test/**/*.test.js"],
+  "reporter": "mochawesome",
+  "reporter-option": [
+    "reportDir=reports",
+    "reportFilename=report",
+    "quiet=true",
+    "consoleReporter=spec",
+    "html=true",
+    "json=true"
+  ]
+}

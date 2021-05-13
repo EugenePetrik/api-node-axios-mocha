@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "node ./utils/clean.js",
     "lint": "eslint '*/**/*.{js,cjs,ts}' --quiet --fix",
-    "test": "mocha --reporter mochawesome --reporter-options reportDir=reports,reportFilename=apiTests --timeout 60000"
+    "test": "mocha --config ./.mocharc.json"
   },
   "type": "module",
   "keywords": [
