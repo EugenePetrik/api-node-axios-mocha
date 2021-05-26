@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "node ./utils/clean.js",
-    "lint": "eslint '*/**/*.{js,cjs,ts}' --quiet --fix",
+    "lint": "eslint '*/**/*.{js}' --quiet --fix",
     "test": "mocha --config ./.mocharc.json"
   },
   "type": "module",

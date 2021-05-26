@@ -1,9 +1,11 @@
 {
+  "require": ["dotenv/config"],
+  "slow": 5000,
+  "timeout": 60000,
   "color": true,
   "delay": false,
   "package": "./package.json",
   "retries": 1,
-  "timeout": "60000",
   "spec": ["./test/**/*.test.js"],
   "reporter": "mochawesome",
   "reporter-option": [
