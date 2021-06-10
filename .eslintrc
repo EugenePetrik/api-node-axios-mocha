@@ -41,6 +41,7 @@
     "babel/object-curly-spacing": 0,
     "babel/semi": 1,
     "babel/valid-typeof": 1,
+    "mocha/no-mocha-arrows": 0,
     "mocha/no-skipped-tests": "error",
     "mocha/no-exclusive-tests": "error",
     "mocha/no-setup-in-describe": 0,

@@ -1,70 +1,57 @@
 import Ajv from 'ajv';
 import fs from 'fs';
 import path from 'path';
-import faker from 'faker';
 import _ from 'lodash';
-import { DateTime } from 'luxon';
 import { expect } from 'chai';
 import user from '../lib/user.controller.js';
-import { users } from '../models//users.js';
 import booking from '../lib/booking.controller.js';
+import { users } from '../models/users.js';
+import { booking as bookingBody } from '../models/bookings.js';
 
-describe('Update Booking', function () {
+describe('Update Booking', () => {
   let response = null;
 
-  const body = {
-    firstname: faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    totalprice: parseInt(faker.commerce.price()),
-    depositpaid: faker.datatype.boolean(),
-    bookingdates: {
-      checkin: DateTime.now().plus({ days: -10 }).toISODate(),
-      checkout: DateTime.now().toISODate(),
-    },
-    additionalneeds: faker.vehicle.vehicle(),
-  };
-
-  before(async function () {
+  before(async () => {
     const userData = await user.login(users.adminUser);
     const userToken = userData.data.token;
 
     const bookingIds = await booking.getBookingIds();
     const bookingId = _.sample(bookingIds.data.map(({ bookingid }) => bookingid));
 
-    response = await booking.updateBooking({ bookingId, body, userToken });
+    response = await booking.updateBooking({ bookingId, bookingBody, userToken });
   });
 
-  it('should return http status code 200', function () {
+  it('should return http status code 200', () => {
     expect(response.status).to.eq(200);
     expect(response.statusText).to.eq('OK');
   });
 
-  it('should return booking firstname', function () {
-    expect(response.data.firstname).to.eq(body.firstname);
+  it('should return booking firstname', () => {
+    expect(response.data.firstname).to.eq(bookingBody.firstname);
   });
 
-  it('should return booking lastname', function () {
-    expect(response.data.lastname).to.eq(body.lastname);
+  it('should return booking lastname', () => {
+    expect(response.data.lastname).to.eq(bookingBody.lastname);
   });
 
-  it('should return booking totalprice', function () {
-    expect(response.data.totalprice).to.eq(body.totalprice);
+  it('should return booking totalprice', () => {
+    expect(response.data.totalprice).to.eq(bookingBody.totalprice);
   });
 
-  it('should return booking depositpaid', function () {
-    expect(response.data.depositpaid).to.eq(body.depositpaid);
+  it('should return booking depositpaid', () => {
+    expect(response.data.depositpaid).to.eq(bookingBody.depositpaid);
   });
 
-  it('should return booking bookingdates', function () {
-    expect(response.data.bookingdates.checkin).to.eq(body.bookingdates.checkin);
-    expect(response.data.bookingdates.checkout).to.eq(body.bookingdates.checkout);
+  it('should return booking bookingdates', () => {
+    expect(response.data.bookingdates.checkin).to.eq(bookingBody.bookingdates.checkin);
+    expect(response.data.bookingdates.checkout).to.eq(bookingBody.bookingdates.checkout);
   });
 
-  it('should return booking additionalneeds', function () {
-    expect(response.data.additionalneeds).to.eq(body.additionalneeds);
+  it('should return booking additionalneeds', () => {
+    expect(response.data.additionalneeds).to.eq(bookingBody.additionalneeds);
   });
 
-  it('should have valid JSON schema', function () {
+  it('should have valid JSON schema', () => {
     const ajv = new Ajv({ status: true, logger: console, allErrors: true, verbose: true });
 
     const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'updateBooking.json'));
