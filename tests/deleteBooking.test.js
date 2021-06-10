@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { expect } from 'chai';
 import user from '../lib/user.controller.js';
+import { users } from '../models//users.js';
 import booking from '../lib/booking.controller.js';
 
 describe('Delete Booking', function () {
@@ -8,7 +9,7 @@ describe('Delete Booking', function () {
   let bookingId = null;
 
   before(async function () {
-    const userData = await user.login();
+    const userData = await user.login(users.adminUser);
     const userToken = userData.data.token;
 
     const bookingIds = await booking.getBookingIds();

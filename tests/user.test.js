@@ -3,12 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
 import user from '../lib/user.controller.js';
+import { users } from '../models/users.js';
 
 describe('User', function () {
   let response = null;
 
   before(async function () {
-    response = await user.login();
+    response = await user.login(users.adminUser);
   });
 
   it('should return http status code 200', function () {
