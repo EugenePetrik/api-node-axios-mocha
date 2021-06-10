@@ -7,7 +7,7 @@ import booking from '../lib/booking.controller.js';
 
 describe('Get Booking', function () {
   let response = null;
-  
+
   before(async function () {
     const bookingIds = await booking.getBookingIds();
     const bookingId = _.sample(bookingIds.data.map(({ bookingid }) => bookingid));

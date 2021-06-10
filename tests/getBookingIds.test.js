@@ -7,41 +7,41 @@ import booking from '../lib/booking.controller.js';
 
 describe('Get Booking IDs', function () {
   let response = null;
-  
-  describe('All IDs', function() {
+
+  describe('All IDs', function () {
     before(async function () {
       response = await booking.getBookingIds();
     });
-  
+
     it('should return http status code 200', function () {
       expect(response.status).to.eq(200);
       expect(response.statusText).to.eq('OK');
     });
-  
+
     it('should return content-type header', function () {
       expect(response.headers['content-type']).to.eq('application/json; charset=utf-8');
     });
-  
+
     it('should return more than one booking id', function () {
       expect(response.data.length).to.be.greaterThan(1);
     });
-  
+
     it('should return booking id as a number', function () {
       const isContainCorrectAlbumId = response.data.every(({ bookingid }) => typeof bookingid === 'number');
       expect(isContainCorrectAlbumId).to.be.true;
     });
-  
+
     it('should have valid JSON schema', function () {
       const ajv = new Ajv({ status: true, logger: console, allErrors: true, verbose: true });
-  
+
       const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'bookingIds.json'));
       const jsonSchema = JSON.parse(fs.readFileSync(jsonPath));
-  
+
       expect(ajv.validate(jsonSchema, response.data)).to.be.true;
     });
   });
 
-  describe('Filter by name', function() {
+  describe('Filter by name', function () {
     const params = {
       firstname: 'sally',
       lastname: 'brown',
@@ -55,31 +55,31 @@ describe('Get Booking IDs', function () {
       expect(response.status).to.eq(200);
       expect(response.statusText).to.eq('OK');
     });
-  
+
     it('should return content-type header', function () {
       expect(response.headers['content-type']).to.eq('application/json; charset=utf-8');
     });
-  
+
     it('should return more than one booking id', function () {
       expect(response.data.length).to.be.greaterThan(1);
     });
-  
+
     it('should return booking id as a number', function () {
       const isContainCorrectAlbumId = response.data.every(({ bookingid }) => typeof bookingid === 'number');
       expect(isContainCorrectAlbumId).to.be.true;
     });
-  
+
     it('should have valid JSON schema', function () {
       const ajv = new Ajv({ status: true, logger: console, allErrors: true, verbose: true });
-  
+
       const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'bookingIds.json'));
       const jsonSchema = JSON.parse(fs.readFileSync(jsonPath));
-  
+
       expect(ajv.validate(jsonSchema, response.data)).to.be.true;
     });
   });
 
-  describe('Filter by checkin/checkout', function() {
+  describe('Filter by checkin/checkout', function () {
     const params = {
       checkin: DateTime.now().plus({ days: -10 }).toISODate(),
       checkout: DateTime.now().toISODate(),
@@ -93,26 +93,26 @@ describe('Get Booking IDs', function () {
       expect(response.status).to.eq(200);
       expect(response.statusText).to.eq('OK');
     });
-  
+
     it('should return content-type header', function () {
       expect(response.headers['content-type']).to.eq('application/json; charset=utf-8');
     });
-  
+
     it('should return more than one booking id', function () {
       expect(response.data.length).to.be.greaterThan(1);
     });
-  
+
     it('should return booking id as a number', function () {
       const isContainCorrectAlbumId = response.data.every(({ bookingid }) => typeof bookingid === 'number');
       expect(isContainCorrectAlbumId).to.be.true;
     });
-  
+
     it('should have valid JSON schema', function () {
       const ajv = new Ajv({ status: true, logger: console, allErrors: true, verbose: true });
-  
+
       const jsonPath = path.resolve(path.join('.', 'data', 'jsonSchema', 'bookingIds.json'));
       const jsonSchema = JSON.parse(fs.readFileSync(jsonPath));
-  
+
       expect(ajv.validate(jsonSchema, response.data)).to.be.true;
     });
   });
